@@ -29,13 +29,13 @@ class QuotesDisplayer extends React.Component {
 
   setQuoteIdFromQueryString(qs) {
     let queryStringParams = queryStringParser.parse(qs);
-    if (queryStringParams.quote) {
+    if (queryStringParams.quote_id) {
       // assign quote ID from the URL's query string
-      this.quoteId = Number(queryStringParams.quote);
+      this.quoteId = Number(queryStringParams.quote_id);
     } else {
       this.quoteId = 1;
       // update URL in browser to reflect current quote in query string
-      this.props.history.push(`/?quote=${this.quoteId}`);
+      this.props.history.push(`/?quote_id=${this.quoteId}`);
     }
   }
 
@@ -51,7 +51,7 @@ class QuotesDisplayer extends React.Component {
 
     return(
       <div>
-        <Link to={`/?quote=${nextQuoteId}`}>Next</Link>
+        <Link to={`/?quote_id=${nextQuoteId}`}>Next</Link>
         <p>{this.state.quote.text}</p>
         <p>{this.state.quote.author}</p>
       </div>
