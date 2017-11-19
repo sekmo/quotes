@@ -51,9 +51,18 @@ class QuotesDisplayer extends React.Component {
 
     return(
       <div>
-        <Link to={`/?quote_id=${nextQuoteId}`}>Next</Link>
-        <p>{this.state.quote.text}</p>
-        <p>{this.state.quote.author}</p>
+        {previousQuoteId &&
+          <Link to={`/?quote_id=${previousQuoteId}`}>
+            Previous
+          </Link>
+         }
+        {nextQuoteId &&
+          <Link to={`/?quote_id=${nextQuoteId}`}>
+            Next
+          </Link>
+        }
+        <p>{quote.text}</p>
+        <p>{quote.author}</p>
       </div>
     );
   }
