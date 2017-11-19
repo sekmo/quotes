@@ -96,8 +96,13 @@ body {
     & > a {
       color: white;
       opacity: .8;
-      &:hover {
+      &:active {
         opacity: 1;
+      }
+      @include breakpoint-min($desktop){
+        &:hover {
+          opacity: 1;
+        }
       }
       display: inline-block;
       min-width: 120px;
