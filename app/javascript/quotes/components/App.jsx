@@ -7,16 +7,14 @@ import QuotesDisplayer from './QuotesDisplayer';
 
 const App = (props) => (
   <Router firstQuoteId={props.firstQuoteId}>
-    <div>
-      <Route
-        path='/'
-        firstQuoteId={props.firstQuoteId}
-        render={(routeProps) => <QuotesDisplayer {...props} {...routeProps} />}
-      />
-      {/* Any component rendered by <Route> will get three props:
-        location, match, and history.
-      */}
-    </div>
+    <Route
+      path='/'
+      firstQuoteId={props.firstQuoteId}
+      render={(routeProps) => <QuotesDisplayer {...props} {...routeProps} />}
+    />
+    {/* Any component rendered by <Route> will get three props:
+      location, match, and history.
+    */}
   </Router>
 );
 
