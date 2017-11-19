@@ -12,6 +12,9 @@ const App = (props) => (
         path='/'
         component={QuotesDisplayer}
       />
+      {/* Any component rendered by <Route> will get three objects as props:
+        location, match, and history.
+      */}
     </div>
   </Router>
 );

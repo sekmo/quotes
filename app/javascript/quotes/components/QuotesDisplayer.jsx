@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string';
+import queryStringParser from 'query-string';
 import axios from 'axios';
 
 class QuotesDisplayer extends React.Component {
@@ -9,6 +9,11 @@ class QuotesDisplayer extends React.Component {
     this.state = {
       quote: {}
     };
+  }
+
+  componentDidMount() {
+    this.setQuoteIdFromQueryString(this.props.location.search);
+    this.setQuote(this.quoteId);
   }
 
   setQuote(id) {
@@ -23,20 +28,15 @@ class QuotesDisplayer extends React.Component {
   }
 
   setQuoteIdFromQueryString(qs) {
-    this.qsParams = queryString.parse(qs);
-    if (this.qsParams.quote) {
+    let queryStringParams = queryStringParser.parse(qs);
+    if (queryStringParams.quote) {
       // assign quote ID from the URL's query string
-      this.quoteId = Number(this.qsParams.quote);
+      this.quoteId = Number(queryStringParams.quote);
     } else {
       this.quoteId = 1;
       // update URL in browser to reflect current quote in query string
       this.props.history.push(`/?quote=${this.quoteId}`);
     }
-  }
-
-  componentDidMount() {
-    this.setQuoteIdFromQueryString(this.props.location.search);
-    this.setQuote(this.quoteId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,7 +45,9 @@ class QuotesDisplayer extends React.Component {
   }
 
   render() {
-    const nextQuoteId = Number(this.state.quote.id) + 1;
+    const quote = this.state.quote;
+    const nextQuoteId = quote.next_id;
+    const previousQuoteId = quote.previous_id;
 
     return(
       <div>
