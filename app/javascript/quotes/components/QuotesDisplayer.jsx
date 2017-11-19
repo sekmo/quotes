@@ -33,7 +33,7 @@ class QuotesDisplayer extends React.Component {
       // assign quote ID from the URL's query string
       this.quoteId = Number(queryStringParams.quote_id);
     } else {
-      this.quoteId = 1;
+      this.quoteId = this.props.firstQuoteId;
       // update URL in browser to reflect current quote in query string
       this.props.history.push(`/?quote_id=${this.quoteId}`);
     }
