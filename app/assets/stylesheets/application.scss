@@ -14,6 +14,28 @@
  *= require_self
  */
 
+ $mobile: 375px;
+ $phablet: 414px;
+ $tablet: 600px;
+ $tablet-h: 1024px;
+ $desktop: 1200px;
+ $sd: 1400px;
+ $hd: 1920px;
+
+ // @include breakpoint-min($tablet){
+ //   font-size: 1.1rem;
+ // }
+ @mixin breakpoint-min($points){
+   @media screen and (min-width: $points) {
+     @content;
+   }
+ }
+ @mixin breakpoint-max($points){
+   @media screen and (max-width: $points) {
+     @content;
+   }
+ }
+
  html {
    box-sizing: border-box;
    background: image-url('sea.jpg') no-repeat center center fixed;
@@ -49,7 +71,12 @@ body {
   padding-bottom: 20px;
 
   .quote {
-    min-height: 350px;
+    min-height: 250px;
+    margin-bottom: 50px;
+    @include breakpoint-min($tablet){
+      min-height: 350px;
+      margin-bottom: 150px;
+    }
 
     .quote-body {
       font-family: 'palatino', georgia, serif;
