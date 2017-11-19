@@ -95,7 +95,7 @@ body {
     text-align: center;
     & > a {
       color: white;
-      opacity: .8;
+      opacity: .7;
       &:active {
         opacity: 1;
       }
@@ -112,6 +112,11 @@ body {
       text-decoration: none;
       &:nth-child(2) {
         margin-left: 20px;
+      }
+      &.disabled,
+      &:active.disabled {
+        opacity: .3;
+        cursor: default;
       }
     }
   }

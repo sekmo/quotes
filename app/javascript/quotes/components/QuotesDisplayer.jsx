@@ -56,13 +56,19 @@ class QuotesDisplayer extends React.Component {
           <p className='quote-author'>– {quote.author}</p>
         </div>
         <div className='quotes__buttons'>
-          {previousQuoteId &&
+          {previousQuoteId ?
             <Link to={`/?quote_id=${previousQuoteId}`}>
+              Previous
+            </Link> :
+            <Link onClick={e => e.preventDefault()} to={`javascript:void(0)`} className='disabled'>
               Previous
             </Link>
           }
-          {nextQuoteId &&
+          {nextQuoteId ?
             <Link to={`/?quote_id=${nextQuoteId}`}>
+              Next
+            </Link> :
+            <Link onClick={e => e.preventDefault()} to={`javascript:void(0)`} className='disabled'>
               Next
             </Link>
           }
