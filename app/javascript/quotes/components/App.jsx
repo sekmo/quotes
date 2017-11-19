@@ -6,13 +6,14 @@ import {
 import QuotesDisplayer from './QuotesDisplayer';
 
 const App = (props) => (
-  <Router>
+  <Router firstQuoteId={props.firstQuoteId}>
     <div>
       <Route
         path='/'
-        component={QuotesDisplayer}
+        firstQuoteId={props.firstQuoteId}
+        render={(routeProps) => <QuotesDisplayer {...props} {...routeProps} />}
       />
-      {/* Any component rendered by <Route> will get three objects as props:
+      {/* Any component rendered by <Route> will get three props:
         location, match, and history.
       */}
     </div>
