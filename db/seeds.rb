@@ -40,7 +40,7 @@ Quote.create! (
       author: "Seneca"
     },
     {
-      text: "The greatest of all weaknesses is the fear of appearing weak",
+      text: "The greatest of all weaknesses is the fear of appearing weak.",
       author: "Jacques-Bénigne Bossuet"
     },
     {
