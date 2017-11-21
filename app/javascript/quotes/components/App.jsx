@@ -6,11 +6,10 @@ import {
 import QuotesDisplayer from './QuotesDisplayer';
 
 const App = (props) => (
-  <Router firstQuoteId={props.firstQuoteId}>
+  <Router>
     <Route
       path='/'
-      firstQuoteId={props.firstQuoteId}
-      render={(routeProps) => <QuotesDisplayer {...props} {...routeProps} />}
+      render={(routeProps) => <QuotesDisplayer {...routeProps} firstQuoteId={props.firstQuoteId} />}
     />
     {/* Any component rendered by <Route> will get three props:
       location, match, and history.
