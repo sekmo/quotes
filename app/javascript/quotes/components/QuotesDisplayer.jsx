@@ -11,13 +11,32 @@ class QuotesDisplayer extends React.Component {
     };
   }
 
-  componentDidMount() {
+  // this method is invoked immediately before a component is mounted on the DOM and rendered
+  componentWillMount() {
     this.setQuoteIdFromQueryString(this.props.location.search);
-    this.setQuote(this.quoteId);
+    this.setQuote();
   }
 
-  setQuote(id) {
-    axios.get(`api/quotes/${id}`)
+  // is invoked after receiving the props, and before rendering
+  componentWillReceiveProps(newProps) {
+    this.setQuoteIdFromQueryString(newProps.location.search);
+    this.setQuote();
+  }
+
+  setQuoteIdFromQueryString(qs) {
+    const queryStringParams = queryStringParser.parse(qs);
+    if (queryStringParams.quote_id) {
+      // assign quote ID from the URL's query string
+      this.quoteId = Number(queryStringParams.quote_id);
+    } else {
+      this.quoteId = this.props.firstQuoteId;
+      // update URL in browser
+      this.props.history.push(`/?quote_id=${this.quoteId}`);
+    }
+  }
+
+  setQuote() {
+    axios.get(`api/quotes/${this.quoteId}`)
       .then(response => {
         this.setState({ quote: response.data });
       })
@@ -27,21 +46,12 @@ class QuotesDisplayer extends React.Component {
     );
   }
 
-  setQuoteIdFromQueryString(qs) {
-    let queryStringParams = queryStringParser.parse(qs);
-    if (queryStringParams.quote_id) {
-      // assign quote ID from the URL's query string
-      this.quoteId = Number(queryStringParams.quote_id);
-    } else {
-      this.quoteId = this.props.firstQuoteId;
-      // update URL in browser to reflect current quote in query string
-      this.props.history.push(`/?quote_id=${this.quoteId}`);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setQuoteIdFromQueryString(nextProps.location.search);
-    this.setQuote(this.quoteId);
+  shouldComponentUpdate(nextProps, nextState) {
+    // A component re-renders every time it receives a prop or when its state changes.
+    // In this case when it receives the prop 'location' from Route, a re-render occurs by default
+    // But we want to re-render this component only after we receive a response and we change the
+    // state after the promise has been resolved
+    return (this.state.quote != nextState.quote);
   }
 
   render() {

@@ -73,11 +73,11 @@ After running `componentWillMount()` the component will render, but since the pr
 
 When we receive the response from the Rails server we set the state of our component with `this.setState`, and every time the state of the component mutates, it is re-rendered. Since this time `this.state.quote` has been set, we're able to correctly display the content of our quote. Yay!!!
 
-#### Link and Route
+#### Link and Route
 
 When we click on the "next" link, the `Route` detects a new location, and since it sends the `location` prop to `QuotesDisplayer`, this said component should be re-rendered. When it receives a prop, (and before re-rendering) it will run `componentWillReceiveProps()`, which sets the new quote id with `setQuoteIdFromQueryString`, and runs `setQuote` to make another GET request and set a new quote object in our state.
 
-#### Rendering with props and state changes
+#### Updating with props and state changes
 
 React components will re-render every time they receives a new prop or when their internal state mutates. In our case we want `QuoteDisplayer` to update the DOM only when its state mutates after we receive the JSON object, and not when it receives the `location` prop from the Route.
 
